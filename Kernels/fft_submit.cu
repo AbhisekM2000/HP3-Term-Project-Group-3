@@ -1,8 +1,7 @@
 // Shubhankar_Banerjee 18EC10056
 // Siddharth Gupta 18EC10057
-                                                                // CONVOLUTION USING FFT 
-%%cuda --name fft_submit.cu
 
+                                                                // CONVOLUTION USING FFT 
 #include <stdio.h>
 #include <stdlib.h>
 #include <cuda.h>
