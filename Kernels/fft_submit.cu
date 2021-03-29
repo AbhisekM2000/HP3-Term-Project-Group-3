@@ -1,6 +1,7 @@
 // Shubhankar_Banerjee 18EC10056
 // Siddharth Gupta 18EC10057
                                                                 // CONVOLUTION USING FFT 
+%%cuda --name fft_submit.cu
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -144,8 +145,9 @@ __global__ void flip_filter(float *flip_inp, float *flip_output, int k_len, int 
 __global__ void do_pad(float *pad_input, float *pad_output, int len, int width, int height, int pad_front, int pad_back, int batch_size)
 {
   //allocation of thread ids in all dimensions 
-  int row = blockIdx.y * blockDim.y + threadIdx.y;
+ 
   int coloumn = blockIdx.x * blockDim.x + threadIdx.x;
+  int row = blockIdx.y * blockDim.y + threadIdx.y;
   int depth = blockIdx.z * blockDim.z + threadIdx.z;
 
   int new_pad_len = len + pad_front + pad_back;
@@ -195,12 +197,12 @@ cufftComplex *compute_fft_input(float *input_layer, int pad, int batchsize, int 
   float *pad_olayer = NULL;
   cudaMalloc((void **)&pad_olayer, batchsize * pad_len * pad_width * height * sizeof(float));
 
-  dim3 threadsize(8, 8, 8);
-  dim3 gridsize(ceil(pad_len / 8.0f), ceil(pad_width / 8.0f), ceil(height / 8.0f));
+  dim3 threadsize1(8, 8, 8);
+  dim3 gridsize1(ceil(pad_len / 8.0f), ceil(pad_width / 8.0f), ceil(height / 8.0f));
 
   int padsize = pad;
   cudaEventRecord(start);
-  do_pad<<<gridsize, threadsize>>>(pad_ilayer, pad_olayer, len, width, height, padsize,padsize, batchsize);
+  do_pad<<<gridsize1, threadsize1>>>(pad_ilayer, pad_olayer, len, width, height, padsize,padsize, batchsize);
   cudaEventRecord(stop);
 
   //error
@@ -294,8 +296,8 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
     //flip_inp= kernel
     cudaMemcpy(flip_inp, kernel, out_size * k_len * k_width * k_height * sizeof(float), cudaMemcpyHostToDevice);
 
-    dim3 threadsize(16, 16, 16);
-    dim3 gridsize(ceil(k_len / 16.0f), ceil(k_width / 16.0f), ceil(k_height / 16.0f));
+    dim3 threadsize(8, 8, 8);
+    dim3 gridsize(ceil(k_len / 8.0f), ceil(k_width / 8.0f), ceil(k_height / 8.0f));
 
     cudaEventRecord(start);
     flip_filter<<<gridsize, threadsize>>>(flip_inp, flip_output, k_len, k_width, k_height, out_size);
@@ -337,8 +339,9 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
     cudaMalloc((void **)&pad_filter_out, out_size * new_k_len * new_k_width * height * sizeof(float));
 
 // for padding 
-    dim3 gridsize1(ceil(new_k_len / 16.0f), ceil(new_k_width / 16.0f), ceil(height / 16.0f));
-    dim3 threadsize1(16, 16, 16);
+    dim3 threadsize1(8, 8, 8);
+    dim3 gridsize1(ceil(new_k_len / 8.0f), ceil(new_k_width / 8.0f), ceil(height / 8.0f));
+   
    
 
     cudaEventRecord(start);
@@ -348,7 +351,7 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
     err = cudaGetLastError();
     if (err != cudaSuccess)
     {
-        fprintf(stderr, "Failed to launch pad filter(error code %s)!\n", cudaGetErrorString(err));
+        fprintf(stderr, "Failed to launch pad kernel_filter(error code %s)!\n", cudaGetErrorString(err));
         exit(EXIT_FAILURE);
     }
 
@@ -368,8 +371,8 @@ cufftComplex *compute_kernel_fft(float *kernel, int pad, int *il_dim, int *kerne
     cudaMalloc((void **)&align_output, out_size * k_len * k_width * k_height * sizeof(float));
     
 
-    dim3 threads3(16, 16, 16);
-    dim3 grid3(ceil(k_len / 16.0f), ceil(k_width / 16.0f), ceil(k_height / 16.0f));
+    dim3 threads3(8, 8, 8);
+    dim3 grid3(ceil(k_len / 8.0f), ceil(k_width / 8.0f), ceil(k_height /8.0f));
 
     cudaEventRecord(start);
     align_filter<<<grid3, threads3>>>(align_inp, align_output, k_len, k_width, k_height, out_size);
@@ -622,8 +625,8 @@ float* pointwise_multiply_FFTs(cufftComplex* img_fft, cufftComplex* kernel_fft, 
   float *crop_in = NULL; 
   crop_in = mul_result; 
 
-  dim3 threads_crop(16,16,16);
-  dim3 grid_crop(ceil(Height/16.0f),ceil(Width/16.0f),ceil(out_size/16.0f));
+  dim3 threads_crop(8,8,8);
+  dim3 grid_crop(ceil(Height/8.0f),ceil(Width/8.0f),ceil(out_size/8.0f));
 
   cudaEventRecord(start);
   crop_with_stride<<<grid_crop, threads_crop>>>( crop_out, Height, Width, nos_oHeight, nos_oWidth, Depth, stride, out_size,crop_in);
