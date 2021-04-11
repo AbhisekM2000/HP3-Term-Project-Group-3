@@ -667,7 +667,7 @@ float* pointwise_multiply_FFTs(cufftComplex* img_fft, cufftComplex* kernel_fft, 
 
 
 /* Implementation of the forward pass of FFT Kernel */
-float *forward(int out_size, int channel, int kernel_len, int kernel_width, int pad, int stride, float *kernel,
+float* FFT::forward(int out_size, int channel, int kernel_len, int kernel_width, int pad, int stride, float *kernel,
                int batch_size, int len, int width, float *input_layer_img, float &conv_time, float &overhead_time)
 {
   int il_dim[3] = {len, width, channel};
@@ -722,7 +722,6 @@ float *forward(int out_size, int channel, int kernel_len, int kernel_width, int 
     free(actual_result);
    
   }
-   printf()
   cudaFree(input_fft);
   cudaFree(kernel_fft);
   cudaEventDestroy(start);
@@ -731,7 +730,7 @@ float *forward(int out_size, int channel, int kernel_len, int kernel_width, int 
  
 
  }
-/*// Main 
+/* Main 
 int main()
 {
   int channel = 3;
@@ -783,7 +782,7 @@ int main()
   float *a1 = &a;
   float *b1 = &b;
 
-  float ****final_temp = forward(out_size, channel, kernel_height, kernel_width, pad, stride, kernel_cuda, batch_size, height, width, input_layer_cuda, a, b);
+  float *final_out = forward(out_size, channel, kernel_height, kernel_width, pad, stride, kernel_cuda, batch_size, height, width, input_layer_cuda, a, b);
   for (int l = 0; l < batch_size; l++)
   {
     for (int i = 0; i < out_size; i++)
