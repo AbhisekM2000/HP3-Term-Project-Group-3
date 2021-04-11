@@ -654,6 +654,7 @@ float* pointwise_multiply_FFTs(cufftComplex* img_fft, cufftComplex* kernel_fft, 
   ms = 0;
   cudaEventElapsedTime(&ms, start, stop);
   overhead_time += ms;
+  printf("Output_crop&stride_time: %f\n",ms);
   
   cudaFree(crop_in); 
   cudaFree(crop_out);
