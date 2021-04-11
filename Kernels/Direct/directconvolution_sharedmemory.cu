@@ -1,4 +1,4 @@
-#include "directconvolution_sharedmemory.h"
+#include "directconvolution.h"
 using namespace std;
 
 __global__ void pad_input(float* f_in, float* f_out, int H, int W, int D, int pad)
