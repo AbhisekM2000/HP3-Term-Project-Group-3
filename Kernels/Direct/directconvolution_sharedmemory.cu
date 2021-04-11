@@ -75,7 +75,7 @@ void direct_convolution(int input_channels, int input_height, int input_width, i
 }
 
 /*forward pass function declared in direc_conv.hpp library*/
-float* Direct::passforward(int out_channels, int input_channels, int kernel_height, int kernel_width, int padding, int stride, 
+float* DirectShared::passforward(int out_channels, int input_channels, int kernel_height, int kernel_width, int padding, int stride, 
                           float* weights,int batchsize_of_data, int input_height, int input_width, float* input, float &conv_time, float& overhead_time) {
   if(kernel_height > input_height || kernel_width > input_width){
     cout << "kernel size is too big " << endl;
