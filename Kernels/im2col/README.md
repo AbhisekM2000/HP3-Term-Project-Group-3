@@ -1,9 +1,7 @@
 ## Im2Col based convolution
 
-**Note: This README describes the implementation in im2col.cu. The differences in im2col_single.cu and im2col2.cu are highlighted in our presentation, and are reproduced here for reference:**
-* im2col_single.cu: Naive implementation. Iterates over each image in batch. Uses normal GEMM.
-* im2col2.cu: Faster implementation. A single kernel launch iterates over each image in batch, instead of multiple kernels launched (as in im2col_single). But number of threads for the launch is same as im2col_single. Uses batched GEMM.
-* im2col.cu: Fastest implementation. A single kernel is launched which parallely processes each image in the batch, ie launching with batch size times the number of threads in im2col_single (and im2col2). Uses batched GEMM.
+**Note: This README describes the implementation in im2col.cu. The differences in im2col_single.cu**
+* im2col.cu: Fastest implementation. A single kernel is launched which parallely processes each image in the batch, Uses batched GEMM.
 * Comparison for the three implementations is provided in the slides.
 * More details on the implementation are present as comments within the codes.
 
