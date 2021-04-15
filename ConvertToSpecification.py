@@ -1,11 +1,3 @@
-#################################################################################
-#  ConvertToSpecification.py:                                                   #
-#  Loads pretrained VGG-19 and AlexNet models in Pytorch and saves them         #
-#  according to the custom protobuf format specified under proto/network.proto  #
-#                                                                               #
-#  Author: Prajwal Singhania                                                    #
-#################################################################################
-
 import torchvision.models as models
 import torch
 import torch.nn as nn
