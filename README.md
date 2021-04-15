@@ -33,7 +33,7 @@ Convolutional Neural Networks (CNNs) have remarkable performance in machine inte
    %cd ..
 
 3. 
-``
+```
 import shutil
 import os 
 %cd /content/
