@@ -51,5 +51,37 @@ Convolutional Neural Networks (CNNs) have remarkable performance in machine inte
    cmd_string = 'git clone https://{0}:{1}@<Repo link.git'.format(user, password)
    os.system(cmd_string)
    cmd_string, password = "", "" # removing the password from the variable
+   ```
+   
+ 5. Changing the current working directory 
+   ```
+   %cd /content/<Repo name> 
+   ```
+6. Compiling the prototxt files using protobuf 
+   ```
+   %cd proto/
+   !protoc -I=. --cpp_out=. ./network.proto
+   %cd ..
+   ```
+   
+7. Loading the pretrained models 
    ``` 
- 5.
+   !python ConvertToSpecification.py
+   %%capture
+   %cd forward/data
+   !unzip MiniImageNet.zip
+   %cd ../../ 
+   ```
+   
+8. CNN forward test 
+   ```
+   %cd /content/H<Repo name>/forward/cnn_forward_test/  # If batch-test is to be performed we can cd to /forward/batch_test/
+   !make 
+   ```
+   
+9. Running different algorithms
+   ```
+   !make run_direct/ run_im2col/ run_fft # Depending upon which algorithm we want to implement our convolution with 
+   ```
+
+   
