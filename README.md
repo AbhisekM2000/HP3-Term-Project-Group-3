@@ -33,9 +33,11 @@ Convolutional Neural Networks (CNNs) have remarkable performance in machine inte
    %cd ..
 
 3. 
-``import shutil
-      import os 
+``
+import shutil
+import os 
 %cd /content/
-if os.path.isdir('/content/HP3-CNN-Inferencing'):
-  shutil.rmtree('/content/HP3-CNN-Inferencing')
+if os.path.isdir('/content/<Name of repo>'):
+  shutil.rmtree('/content/<Name of repo>')
+```
 
