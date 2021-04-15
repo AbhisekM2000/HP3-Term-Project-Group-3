@@ -1,6 +1,6 @@
 ## Im2Col based convolution
 
-**Note: This README describes the implementation in im2col.cu. The differences in im2col_single.cu**
+**Note: This README describes the implementation in im2col.cu.**
 * im2col.cu: Fastest implementation. A single kernel is launched which parallely processes each image in the batch, Uses batched GEMM.
 * Comparison for the three implementations is provided in the slides.
 * More details on the implementation are present as comments within the codes.
