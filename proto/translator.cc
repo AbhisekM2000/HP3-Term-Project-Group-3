@@ -1,10 +1,3 @@
-/************************************************************
- * translator.cc:									                          *
- * Implementation of translator.h                           *
- *                                                          *
- * Author: Tanay Bhartia, Prajwal Singhania                 *
- ************************************************************/
-
 #include "translator.h"
 
 /* Implementation of (Translator)translateConv2D_layer */
