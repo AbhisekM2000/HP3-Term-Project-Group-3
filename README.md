@@ -32,12 +32,24 @@ Convolutional Neural Networks (CNNs) have remarkable performance in machine inte
    !sudo ldconfig 
    %cd ..
 
-3. 
-```
-import shutil
-import os 
-%cd /content/
-if os.path.isdir('/content/<Name of repo>'):
-  shutil.rmtree('/content/<Name of repo>')
-```
-
+3. Setting the system path
+   ```
+   import shutil
+   import os 
+   %cd /content/
+   if os.path.isdir('/content/<Name of repo>'):
+   shutil.rmtree('/content/<Name of repo>')
+   ```
+4. Importing repo to Google Colab 
+   ```
+   import os
+   from getpass import getpass
+   import urllib
+   user = input('User name: ')
+   password = getpass('Password: ')
+   password = urllib.parse.quote(password) # your password is converted into url format
+   cmd_string = 'git clone https://{0}:{1}@<Repo link.git'.format(user, password)
+   os.system(cmd_string)
+   cmd_string, password = "", "" # removing the password from the variable
+   ``` 
+ 5.
