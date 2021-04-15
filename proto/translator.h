@@ -1,11 +1,3 @@
-/************************************************************
- * translator.h:									                          *
- * Translates the protobuf objects from custom specification*
- * to operation objects defined in forward/operations.h     *
- *                                                          *
- * Author: Tanay Bhartia, Prajwal Singhania                 *
- ************************************************************/
-
 #ifndef TRANSLATOR_H
 #define TRANSLATOR_H
 
