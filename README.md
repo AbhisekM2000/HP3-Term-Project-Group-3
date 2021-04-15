@@ -52,8 +52,8 @@ Convolutional Neural Networks (CNNs) have remarkable performance in machine inte
    os.system(cmd_string)
    cmd_string, password = "", "" # removing the password from the variable
    ```
-   
- 5. Changing the current working directory 
+
+5. Changing the current working directory 
    ```
    %cd /content/<Repo name> 
    ```
