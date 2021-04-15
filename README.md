@@ -11,4 +11,8 @@ Convolutional Neural Networks (CNNs) have remarkable performance in machine inte
 
 4.Implement Convolution using FFT computation (2 students)
 
-5.Apart from this you may use cuBLAS routines for GEMM and Caffe's Pooling Kernel Implementation. (2 students)
+5.Apart from this you may use cuBLAS routines for GEMM and Caffe's Pooling Kernel Implementation. (2 students) 
+
+# How to run the code 
+
+
