@@ -13,6 +13,29 @@ Convolutional Neural Networks (CNNs) have remarkable performance in machine inte
 
 5.Apart from this you may use cuBLAS routines for GEMM and Caffe's Pooling Kernel Implementation. (2 students) 
 
-# How to run the code 
+# How to run the code  
 
+1. Open a Google Colab notebook 
+
+2. Install protobuf using the following commands
+   
+   ``` 
+   %%capture
+   !apt-get install autoconf automake libtool curl make g++ unzip
+   !git clone https://github.com/protocolbuffers/protobuf.git
+   %cd protobuf
+   !git submodule update --init --recursive
+   !./autogen.sh
+   !./configure
+   !make -j8
+   !sudo make install
+   !sudo ldconfig 
+   %cd ..
+
+3. 
+``import shutil
+      import os 
+%cd /content/
+if os.path.isdir('/content/HP3-CNN-Inferencing'):
+  shutil.rmtree('/content/HP3-CNN-Inferencing')
 
